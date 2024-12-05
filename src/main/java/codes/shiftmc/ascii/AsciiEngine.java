@@ -9,6 +9,10 @@ public class AsciiEngine {
 
     private static final String ascii = "`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
 
+    private static String getAnsiColor(int r, int g, int b) {
+        return String.format("\u001B[38;2;%d;%d;%dm", r, g, b);
+    }
+
     public String getText(BufferedImage image) {
         StringBuilder result = new StringBuilder();
 
@@ -77,10 +81,6 @@ public class AsciiEngine {
         char asciiChar = ascii.charAt(index);
 
         return new PixelData(red, green, blue, asciiChar);
-    }
-
-    private static String getAnsiColor(int r, int g, int b) {
-        return String.format("\u001B[38;2;%d;%d;%dm", r, g, b);
     }
 
     private static class PixelData {

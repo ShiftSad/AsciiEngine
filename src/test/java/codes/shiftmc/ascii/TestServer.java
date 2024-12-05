@@ -3,7 +3,6 @@ package codes.shiftmc.ascii;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.entity.GameMode;
-import net.minestom.server.entity.MetadataDef;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.AsyncPlayerConfigurationEvent;
@@ -24,6 +23,18 @@ public class TestServer {
 
         instanceContainer.setGenerator(unit -> unit.modifier().fillHeight(0, 40, Block.GRASS_BLOCK));
         instanceContainer.setChunkSupplier(LightingChunk::new);
+
+        // Wall
+        var start = new Pos(-22, 43, -11);
+        var end = new Pos(21, 71, -11);
+
+        for (double x = Math.min(start.x(), end.x()); x <= Math.max(start.x(), end.x()); x++) {
+            for (double y = Math.min(start.y(), end.y()); y <= Math.max(start.y(), end.y()); y++) {
+                for (double z = Math.min(start.z(), end.z()); z <= Math.max(start.z(), end.z()); z++) {
+                    instanceContainer.setBlock((int) x, (int) y, (int) z, Block.BLACK_CONCRETE);
+                }
+            }
+        }
 
         GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
         globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
