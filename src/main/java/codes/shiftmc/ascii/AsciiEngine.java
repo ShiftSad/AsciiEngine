@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 public class AsciiEngine {
 
-    private static final String ascii = " `.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
+    private static final String ascii = "`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
 
     public String getText(BufferedImage image) {
         StringBuilder result = new StringBuilder();
@@ -27,12 +27,41 @@ public class AsciiEngine {
     public Component getComponent(BufferedImage image) {
         Component component = Component.empty();
 
+        TextColor previousColor = null;
+        int repeatCount = 0;
+
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
-                PixelData pixelData = getPixelData(image.getRGB(x, y));
-                component = component.append(Component.text(pixelData.asciiChar, TextColor.color(pixelData.red, pixelData.green, pixelData.blue)));
+                int color = image.getRGB(x, y);
+
+                // Extract each color component
+                int red = (color >>> 16) & 0xFF;
+                int green = (color >>> 8) & 0xFF;
+                int blue = color & 0xFF;
+
+                TextColor currentColor = TextColor.color(red, green, blue);
+
+                if (currentColor.equals(previousColor)) {
+                    repeatCount++;
+                    continue;
+                }
+
+                if (previousColor != null) {
+                    component = component.append(Component.text("█".repeat(repeatCount), previousColor));
+                }
+
+                // Start new color block
+                previousColor = currentColor;
+                repeatCount = 1;
             }
+
+            if (previousColor != null) {
+                component = component.append(Component.text("█".repeat(repeatCount), previousColor));
+            }
+
             component = component.append(Component.text("\n"));
+            previousColor = null;
+            repeatCount = 0;
         }
 
         return component;
