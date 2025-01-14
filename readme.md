@@ -14,8 +14,14 @@ The **ASCII Engine** is a simple and efficient engine built in Java for generati
 ---
 
 ### Showcase
-[![Showcase Video 1](https://img.youtube.com/vi/ZM-AFZioXRE/0.jpg)](https://youtu.be/ZM-AFZioXRE)  
-[![Showcase Video 2](https://img.youtube.com/vi/-8MN6c9gMxg/0.jpg)](https://youtu.be/-8MN6c9gMxg)
+<div align="center">
+    <a href="https://youtu.be/ZM-AFZioXRE">
+        <img src="https://img.youtube.com/vi/ZM-AFZioXRE/0.jpg" alt="Showcase Video 1" width="45%"/>
+    </a>
+    <a href="https://youtu.be/-8MN6c9gMxg">
+        <img src="https://img.youtube.com/vi/-8MN6c9gMxg/0.jpg" alt="Showcase Video 2" width="45%"/>
+    </a>
+</div>
 
 ---
 
